@@ -303,7 +303,8 @@ def main() -> None:
         st.download_button("Tải danh sách file lỗi", to_csv(failures, ["url", "status", "error"]), "board_failed.csv", "text/csv")
     if rows:
         st.subheader("Kết quả lần phân tích gần nhất")
-        st.dataframe(rows)
+        # ponytail: ép chuỗi để Arrow không lỗi khi cột lẫn "" và số; thêm sort số khi cần.
+        st.dataframe([{k: str(v) for k, v in row.items()} for row in rows])
         st.download_button("Tải kết quả CSV", to_csv(rows, rows[0].keys()), "board_analysis.csv", "text/csv")
 
 
